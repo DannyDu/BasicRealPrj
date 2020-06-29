@@ -4,10 +4,16 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, Menus;
 
 type
   TMainFrm = class(TForm)
+    mm1: TMainMenu;
+    MenuFile: TMenuItem;
+    MenuQuit: TMenuItem;
+    MenuItem: TMenuItem;
+    MenuDiskSN: TMenuItem;
+    procedure MenuDiskSNClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -19,8 +25,16 @@ var
 
 implementation
 
+uses
+  CommonUnit;
+
 {$R *.dfm}
 
+
+procedure TMainFrm.MenuDiskSNClick(Sender: TObject);
+begin
+  ShowMessage(GetIdeNum());
+end;
 
 initialization
 

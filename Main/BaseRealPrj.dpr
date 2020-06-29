@@ -2,7 +2,8 @@ program BaseRealPrj;
 
 uses
   Forms,
-  MainfrmUnit in 'MainfrmUnit.pas' {MainFrm};
+  MainfrmUnit in 'MainfrmUnit.pas' {MainFrm},
+  CommonUnit in '..\Common\CommonUnit.pas';
 
 {$R *.res}
 
