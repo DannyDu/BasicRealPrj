@@ -3,7 +3,8 @@ program BaseRealPrj;
 uses
   Forms,
   MainfrmUnit in 'MainfrmUnit.pas' {MainFrm},
-  CommonUnit in '..\Common\CommonUnit.pas';
+  CommonUnit in '..\Common\CommonUnit.pas',
+  ThreadCommonUnit in '..\Common\ThreadCommonUnit.pas';
 
 {$R *.res}
 

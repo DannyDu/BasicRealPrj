@@ -29,6 +29,10 @@ object MainFrm: TMainFrm
         Caption = #30828#30424'SN'
         OnClick = MenuDiskSNClick
       end
+      object N1: TMenuItem
+        Caption = #20256#36882#32467#26500#20307#21040#32447#31243
+        OnClick = N1Click
+      end
     end
   end
 end

@@ -6,6 +6,19 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus;
 
+const
+  WM_POSTITEMDATE = WM_USER + 100;
+  WM_POSTSTRING = WM_POSTITEMDATE + 1;
+
+type
+  PItemData = ^ItemData;
+
+  ItemData = record
+    ItemID: Cardinal;
+    ItemCode: array[0..255] of Char;
+    ItemName: array[0..255] of Char;
+  end;
+
 function GetIdeNum: string;
 
 implementation
