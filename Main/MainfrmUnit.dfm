@@ -29,9 +29,17 @@ object MainFrm: TMainFrm
         Caption = #30828#30424'SN'
         OnClick = MenuDiskSNClick
       end
-      object N1: TMenuItem
+      object NThread: TMenuItem
         Caption = #20256#36882#32467#26500#20307#21040#32447#31243
-        OnClick = N1Click
+        OnClick = NThreadClick
+      end
+      object NResEXE: TMenuItem
+        Caption = #36164#28304#25991#20214#20013#30340'EXE'
+        OnClick = NResEXEClick
+      end
+      object NResString: TMenuItem
+        Caption = #36164#28304#25991#20214#20013#30340#23383#31526#20018
+        OnClick = NResStringClick
       end
     end
   end

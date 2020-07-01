@@ -13,9 +13,13 @@ type
     MenuQuit: TMenuItem;
     MenuItem: TMenuItem;
     MenuDiskSN: TMenuItem;
-    N1: TMenuItem;
+    NThread: TMenuItem;
+    NResEXE: TMenuItem;
+    NResString: TMenuItem;
     procedure MenuDiskSNClick(Sender: TObject);
-    procedure N1Click(Sender: TObject);
+    procedure NThreadClick(Sender: TObject);
+    procedure NResEXEClick(Sender: TObject);
+    procedure NResStringClick(Sender: TObject);
   private
     { Private declarations }
     procedure RevMsgStr(var msg: TMessage); message WM_POSTSTRING;
@@ -33,13 +37,14 @@ implementation
 
 var
   threadCom: ThreadCommon;
+  Hnd:Cardinal;
 
 procedure TMainFrm.MenuDiskSNClick(Sender: TObject);
 begin
   ShowMessage(GetIdeNum());
 end;
 
-procedure TMainFrm.N1Click(Sender: TObject);
+procedure TMainFrm.NThreadClick(Sender: TObject);
 var
   i: Cardinal;
   PD: PItemData;
@@ -65,14 +70,40 @@ begin
   Dispose(ps);  
 end;
 
+procedure TMainFrm.NResEXEClick(Sender: TObject);
+var Stream: TResourceStream;
+begin
+
+  if hnd > 0 then
+  begin
+    Stream:= TResourceStream.Create(Hnd, 'myexe', RT_RCDATA); // 使用装载得到的句柄
+    Stream.SaveToFile('D:\Code\BasicRealPrj\Bin\myexe.exe');
+    stream.Free;
+  end;
+end;
+
+procedure TMainFrm.NResStringClick(Sender: TObject);
+ var
+    Buf: PChar;
+begin
+  if hnd > 0 then
+  begin
+    GetMem(Buf, 255);
+    LoadString(Hnd, 2, Buf, 255); // 使用LoadString装载指定句柄的字符串
+    ShowMessage(Buf);
+    FreeMem(Buf, 255);
+  end;
+end;
+
 initialization
   threadCom := ThreadCommon.Create(False);
   threadCom.FreeOnTerminate := True;
-  threadCom.Resume
+  threadCom.Resume;
+  Hnd := LoadLibrary('resourceDLL.dll'); // 装载资源文件
 
 finalization
   threadCom.Terminate;
   //threadCom.Free;
-
+  FreeLibrary(hnd);
 end.
 
