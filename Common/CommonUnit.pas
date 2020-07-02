@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus;
+  Dialogs, Menus, EncdDecd;
 
 const
   WM_POSTITEMDATE = WM_USER + 100;
@@ -20,6 +20,8 @@ type
   end;
 
 function GetIdeNum: string;
+function Base64ToFile(const str, fn: string): string;
+function FileToBase64(fn: string): string;
 
 implementation
 
@@ -205,6 +207,61 @@ begin
     SetString(Result, sSerialNumber, SizeOf(sSerialNumber));
   end;
   Result := Trim(Result);
+end;
+
+function FileToBase64(fn: string): string;
+var
+  mm: TMemoryStream;
+  sf: TStringStream;
+begin
+  try
+    try
+      mm := TMemoryStream.Create;
+      try
+        sf := TStringStream.Create('');
+        mm.LoadFromFile(fn);
+        EncdDecd.EncodeStream(mm, sf);                       // 将m1的内容Base64到m2中
+        Result := sf.DataString;
+
+      finally
+        sf.Free;
+      end;
+    finally
+      mm.Free;
+    end;
+  except
+    on e: Exception do
+    begin
+      OutputDebugString(PChar('FileToBase64->Error: ' + e.Message));
+    end;
+  end;
+end;
+
+function Base64ToFile(const str, fn: string): string;
+var
+  mm: TMemoryStream;
+  sf: TStringStream;
+begin
+  try
+    try
+      mm := TMemoryStream.Create;
+      try
+        sf := TStringStream.Create(str);
+
+        EncdDecd.DecodeStream(sf, mm);                       // 将m1的内容Base64到m2中
+        mm.SaveToFile(fn);
+      finally
+        sf.Free;
+      end;
+    finally
+      mm.Free;
+    end;
+  except
+    on e: Exception do
+    begin
+      OutputDebugString(PChar('FileToBase64->Error: ' + e.Message));
+    end;
+  end;
 end;
 
 end.
