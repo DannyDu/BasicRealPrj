@@ -16,10 +16,12 @@ type
     NThread: TMenuItem;
     NResEXE: TMenuItem;
     NResString: TMenuItem;
+    NResEdit: TMenuItem;
     procedure MenuDiskSNClick(Sender: TObject);
     procedure NThreadClick(Sender: TObject);
     procedure NResEXEClick(Sender: TObject);
     procedure NResStringClick(Sender: TObject);
+    procedure NResEditClick(Sender: TObject);
   private
     { Private declarations }
     procedure RevMsgStr(var msg: TMessage); message WM_POSTSTRING;
@@ -31,6 +33,9 @@ var
   MainFrm: TMainFrm;
 
 implementation
+
+uses
+  frmResEditUnit;
 
 
 {$R *.dfm}
@@ -93,6 +98,12 @@ begin
     ShowMessage(Buf);
     FreeMem(Buf, 255);
   end;
+end;
+
+procedure TMainFrm.NResEditClick(Sender: TObject);
+begin
+frmResEdit:=TfrmResEdit.Create(Self);
+frmResEdit.ShowModal;
 end;
 
 initialization

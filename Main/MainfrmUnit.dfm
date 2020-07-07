@@ -41,6 +41,10 @@ object MainFrm: TMainFrm
         Caption = #36164#28304#25991#20214#20013#30340#23383#31526#20018
         OnClick = NResStringClick
       end
+      object NResEdit: TMenuItem
+        Caption = #36164#28304#32534#36753
+        OnClick = NResEditClick
+      end
     end
   end
 end
